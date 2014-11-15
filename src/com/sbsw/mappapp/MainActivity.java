@@ -9,20 +9,45 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
 
+	private Button _showLoc;
+	private GpsService _gps;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new MainFragment())
-                    .commit();
-        }
+        setContentView(R.layout.fragment_main);
+        
+        _showLoc = (Button) findViewById(R.id.LatLon);
+        _showLoc.setOnClickListener(new View.OnClickListener() {
+            
+            @Override
+            public void onClick(View arg0) {        
+                // create class object
+                _gps = new GpsService(MainActivity.this);
+ 
+                // check if GPS enabled     
+                if(_gps.canGetLocation()){
+                     
+                    double latitude = _gps.getLatitude();
+                    double longitude = _gps.getLongitude();
+                     
+                    // \n is for new line
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();    
+                }else{
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    _gps.showSettingsAlert();
+                }
+                 
+            }
+        });
     }
 
 
