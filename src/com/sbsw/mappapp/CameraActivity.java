@@ -61,12 +61,7 @@ public class CameraActivity extends Activity {
 		releaseCamera();
 	}
 	
-	protected void onResume() {
-		_camera = getCameraInstance();
-		Camera.Parameters params = _camera.getParameters();
-		params.setRotation(90);
-		_camera.setParameters(params);
-	}
+
 
 	private void releaseCamera(){
 		if (_camera != null){
