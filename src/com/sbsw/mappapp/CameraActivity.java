@@ -47,6 +47,7 @@ public class CameraActivity extends Activity {
 		super.onStop();
 		releaseCamera();
 	}
+<<<<<<< HEAD
 
 	protected void onResume() {
 		super.onResume();
@@ -61,6 +62,10 @@ public class CameraActivity extends Activity {
 			previewLayout.addView(_preview);
 		}
 	}
+=======
+	
+
+>>>>>>> ef1bbcf12c49933510be3524c251742461720aa6
 
 
 	private void releaseCamera(){

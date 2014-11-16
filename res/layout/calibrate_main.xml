@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+=======
+
+ 
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+>>>>>>> ef1bbcf12c49933510be3524c251742461720aa6
     android:id="@+id/linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,8 +20,7 @@
         android:layout_alignParentTop="true"
         android:layout_weight="1"
         android:cropToPadding="false"
-        android:scaleType="fitXY"
-        android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+        android:scaleType="fitXY" />
 
     <com.sbsw.mappapp.Utils.Dot
         android:id="@+id/dot"

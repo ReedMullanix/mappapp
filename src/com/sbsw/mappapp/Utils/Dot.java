@@ -1,6 +1,10 @@
 package com.sbsw.mappapp.Utils;
 
+import com.sbsw.mappapp.R;
+
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,6 +14,7 @@ import android.view.View;
 
 public class Dot extends View {
 	private static final float RADIUS = 20;
+	private Bitmap bm;
 	private float x = 30;
 	private float y = 30;
 	private float initialX;
@@ -21,10 +26,14 @@ public class Dot extends View {
 
 	public Dot(Context context, AttributeSet attrs) {
 		super(context, attrs);
-
+		
 		myPaint = new Paint();
 		myPaint.setColor(Color.RED);
 		myPaint.setAntiAlias(true);
+		bm = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.gps_icon_big);
+		bm = Bitmap.createScaledBitmap(bm, 75, 75, false);
+		
 	}
 
 	public boolean onTouchEvent(MotionEvent event) {
@@ -55,7 +64,7 @@ public class Dot extends View {
 	 public void draw(Canvas canvas) {
 		    int width = canvas.getWidth();
 		    int height = canvas.getHeight();
-		    canvas.drawCircle(x, y, RADIUS, myPaint);
+		    canvas.drawBitmap(bm, x - bm.getWidth()/2, y - bm.getHeight()/2, myPaint);
 		    invalidate();
 	 }
 
