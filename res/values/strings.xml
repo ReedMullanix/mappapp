@@ -4,5 +4,6 @@
     <string name="app_name">mappapp</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
+    <string name="camera_activity_label">Take A Photo</string>
+	<string name="calibrate_activity_label">Begin Calibration</string>
 </resources>

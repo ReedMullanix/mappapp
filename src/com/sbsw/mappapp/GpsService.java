@@ -1,5 +1,8 @@
 package com.sbsw.mappapp;
 
+import com.sbsw.mappapp.model.GpsPoint;
+import com.sbsw.mappapp.model.GpsPointList;
+
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -99,7 +102,7 @@ public class GpsService extends Service implements LocationListener {
     
 	@Override
 	public void onLocationChanged(Location location) {
-		
+		GpsPointList.getInstance().write(new GpsPoint(_lat, _lon, System.currentTimeMillis()));
 	}
 	
 	@Override
@@ -132,7 +135,7 @@ public class GpsService extends Service implements LocationListener {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(_context);
       
         // Setting Dialog Title
-        alertDialog.setTitle("GPS is settings");
+        alertDialog.setTitle("GPS settings");
   
         // Setting Dialog Message
         alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
