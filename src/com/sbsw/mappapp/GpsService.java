@@ -41,6 +41,7 @@ public class GpsService extends Service implements LocationListener {
 	public GpsService(Context context) {
         this._context = context;
         getLocation();
+        GpsPointList.getInstance().write(new GpsPoint(_lat, _lon, System.currentTimeMillis()));
     }
 	
 	//Gets the location
@@ -103,6 +104,8 @@ public class GpsService extends Service implements LocationListener {
 	@Override
 	public void onLocationChanged(Location location) {
 		GpsPointList.getInstance().write(new GpsPoint(_lat, _lon, System.currentTimeMillis()));
+		Log.d("LOCATION", "Location Changed");
+		
 	}
 	
 	@Override

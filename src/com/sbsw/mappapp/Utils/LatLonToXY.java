@@ -1,13 +1,33 @@
 package com.sbsw.mappapp.Utils;
 
+import com.sbsw.mappapp.model.GpsPoint;
+
 public class LatLonToXY {
 	
-	private static double scaleFactor = 1;
+	private static double scaleFactor = 100000;
+	private static float dotX;
+	private static float dotY;
+	private static GpsPoint dotGps;
 	
-	public static int[] convert(int x, int y, double lat, double lon) {
-		int[] output = new int[2];
-		//X value
+	public static float[] convert(double lat, double lon) {
+		float[] output = new float[2];
+		output[0] = dotX + (float)((dotGps.getLongitude() - lon) * scaleFactor);
+		output[1] = dotY + (float)((dotGps.getLatitude() - lat) * scaleFactor);
 		return output;
+	}
+	
+	public static void saveDotPos(float x, float y) {
+		dotX = x;
+		dotY = y;
+	}
+	
+	public static void setDotGPS(GpsPoint gps) {
+		dotGps = gps;
+	}
+	
+	public static float[] getDotPos() {
+		float[] out = {dotX, dotY};
+		return out;
 	}
 	
 	public static void setScaleFactor(double scale) {

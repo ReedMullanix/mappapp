@@ -2,8 +2,10 @@ package com.sbsw.mappapp;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Currency;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -20,13 +22,11 @@ import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
 
 import com.sbsw.mappapp.Utils.*;
+import com.sbsw.mappapp.model.GpsPoint;
+import com.sbsw.mappapp.model.GpsPointList;
 
 public class CalibrationActivity extends Activity {
 
-	private GpsService _gps;
-	private GestureDetectorCompat _detector; 
-	
-	
 	public void onCreate(Bundle savedInstanceState) {
 		//Load up our layout
 		super.onCreate(savedInstanceState);
@@ -37,6 +37,9 @@ public class CalibrationActivity extends Activity {
 	}
 	
 	public void DotLock(View view) {
-		((Dot) findViewById(R.id.dot)).lock();
+		Dot dot = ((Dot) findViewById(R.id.dot));
+		LatLonToXY.saveDotPos(dot.getX(), dot.getY());
+		Intent intent = new Intent(CalibrationActivity.this, WalkActivity.class);
+		startActivity(intent);
 	}
 }

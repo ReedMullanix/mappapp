@@ -25,7 +25,7 @@ public class GpsPointList {
 	
 	
 	public GpsPoint read() {
-		return points.get(points.size());
+		return points.get(points.size() - 1);
 	}
 	
 	public int length() {

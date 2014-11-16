@@ -37,6 +37,14 @@
             android:name="android.support.PARENT_ACTIVITY"
             android:value="com.sbsw.mappapp.CameraActivity" />
     	</activity>
+    	<activity
+        android:name="WalkActivity"
+        android:label="@string/calibrate_activity_label"
+        android:parentActivityName="com.sbsw.mappapp.CalibrationActivity" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.sbsw.mappapp.CalibrationActivity" />
+    	</activity>
     </application>
 	
 </manifest>

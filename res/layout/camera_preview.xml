@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
- 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
@@ -19,11 +18,13 @@
 
     <ImageButton
         android:id="@+id/button_capture"
+        style="@style/AppBaseTheme"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
         android:background="@drawable/camera_button"
-        android:onClick="takePhoto"/>
+        android:onClick="takePhoto" />
+
 </RelativeLayout>
