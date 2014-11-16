@@ -10,6 +10,7 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,14 +18,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
-import android.view.GestureDetector;
 
 import com.sbsw.mappapp.Utils.*;
 
-public class CalibrationActivity extends Activity implements GestureDetector.OnGestureListener {
+public class CalibrationActivity extends Activity {
 
 	private GpsService _gps;
-
+	private GestureDetectorCompat _detector; 
+	
+	
 	public void onCreate(Bundle savedInstanceState) {
 		//Load up our layout
 		super.onCreate(savedInstanceState);
@@ -33,43 +35,8 @@ public class CalibrationActivity extends Activity implements GestureDetector.OnG
 		ImageView myImage = (ImageView) findViewById(R.id.imageView1);
 		myImage.setImageBitmap(BitmapFactory.decodeFile(mediaStorageDir + "tmpMap.png"));
 	}
-
-	@Override
-	public boolean onDown(MotionEvent e) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void onShowPress(MotionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean onSingleTapUp(MotionEvent e) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
-			float distanceY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void onLongPress(MotionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-			float velocityY) {
+	
+	public void DotLock(View view) {
 		((Dot) findViewById(R.id.dot)).lock();
-		Log.d("FLING FLUNG", "FLOONG");
-		return true;
 	}
 }

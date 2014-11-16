@@ -44,8 +44,8 @@ public class Dot extends View {
 			case MotionEvent.ACTION_CANCEL:
 				//x = initialX + event.getX() - offsetX;
 				//y = initialY + event.getY() - offsetY;
-				//x = event.getX();
-				//y = event.getY();
+				x = event.getX();
+				y = event.getY();
 				break;
 			}
 		}
