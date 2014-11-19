@@ -14,7 +14,19 @@
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true" >
 
+        
+
     </FrameLayout>
+    
+    <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#3fc380"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Take Photo"
+            android:textColor="#fff"
+            android:textSize="30dp" />
 
     <ImageButton
         android:id="@+id/button_capture"
@@ -23,6 +35,7 @@
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_marginBottom="15dp"
         android:background="@drawable/camera_button"
         android:onClick="takePhoto" />

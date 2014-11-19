@@ -4,12 +4,12 @@ import com.sbsw.mappapp.model.GpsPoint;
 
 public class LatLonToXY {
 	
-	private static double scaleFactor = 100000;
+	private static double scaleFactor = 80000;
 	private static float dotX;
 	private static float dotY;
 	private static GpsPoint dotGps;
 	
-	public static float[] convert(double lat, double lon) {
+	public static float[] convert(double lon, double lat) {
 		float[] output = new float[2];
 		output[0] = dotX + (float)((dotGps.getLongitude() - lon) * scaleFactor);
 		output[1] = dotY + (float)((dotGps.getLatitude() - lat) * scaleFactor);

@@ -10,20 +10,24 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 
 public class Dot extends View {
 	private static final float RADIUS = 20;
 	private Bitmap bm;
-	private float x = 30;
-	private float y = 30;
+	private float x = 10;
+	private float y = 10;
 	private GpsPoint point;
 	private Paint myPaint;
 	private boolean isLocked = false;
 
 	public Dot(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		DisplayMetrics metrics = new DisplayMetrics();
+		//((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().GetMetrics(metrics);
 		myPaint = new Paint();
 		myPaint.setAntiAlias(true);
 		bm = BitmapFactory.decodeResource(context.getResources(),

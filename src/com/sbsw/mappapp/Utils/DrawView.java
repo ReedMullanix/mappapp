@@ -1,5 +1,7 @@
 package com.sbsw.mappapp.Utils;
 
+import java.util.ArrayList;
+
 import com.sbsw.mappapp.model.GpsPoint;
 import com.sbsw.mappapp.model.GpsPointList;
 
@@ -9,26 +11,36 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Toast;
 
 public class DrawView extends View {
 	private Paint paint = new Paint();
-	private GpsPoint last;
-	private GpsPoint prevLast;
-	//the algorithm is startPos.x + (new.lat - startPos.lat)*scale
-	private double scale = 1;
+	private ArrayList<GpsPoint> dotList;
+	private GpsPoint prev;
 	
 	public DrawView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		last = GpsPointList.getInstance().read();
-		prevLast = GpsPointList.getInstance().read();
-		paint.setColor(Color.RED);
+		paint.setColor(Color.rgb(255, 110, 110));
+		paint.setStrokeWidth(5);
+		setWillNotDraw(false);
+		dotList = new ArrayList<GpsPoint>();
+		dotList = GpsPointList.getInstance().read();
+		prev = dotList.get(0);
 	}
 	
+	
 	public void onDraw(Canvas canvas) {
-		last = GpsPointList.getInstance().read();
-		float[] lastXY = LatLonToXY.convert(last.getLongitude(), last.getLatitude());
-		float[] prevLastXY = LatLonToXY.convert(prevLast.getLongitude(), prevLast.getLatitude());
-		canvas.drawLine(lastXY[0], lastXY[1], prevLastXY[0], prevLastXY[1], paint);
-		prevLast = last;
+		super.onDraw(canvas);
+		for(GpsPoint p : dotList) {
+			float[] lastXY = LatLonToXY.convert(p.getLongitude(), p.getLatitude());
+			float[] prevXY = LatLonToXY.convert(prev.getLongitude(), prev.getLatitude());
+			canvas.drawCircle(lastXY[0], lastXY[1], 5, paint);
+			canvas.drawLine(lastXY[0], lastXY[1],prevXY[0], prevXY[1], paint);
+			prev = p;
+			
+		}
+		this.invalidate();
 	}
+	
+	
 }

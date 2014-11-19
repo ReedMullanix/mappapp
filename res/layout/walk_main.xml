@@ -20,12 +20,21 @@
         android:layout_alignParentLeft="true" />
 
     <com.sbsw.mappapp.Utils.DrawView
-        android:lines="1" 
-        android:singleLine="true"
-        android:id="@+id/drawView"
+        android:id="@+id/draw_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:lines="1"
+        android:singleLine="true" />
+    <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#3fc380"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Begin Walking"
+            android:textColor="#fff"
+            android:textSize="30dp" />
 
 </RelativeLayout>

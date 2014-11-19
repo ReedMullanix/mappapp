@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 public class GpsService extends Service implements LocationListener {
 
@@ -62,8 +63,7 @@ public class GpsService extends Service implements LocationListener {
 					Log.d("GPS Enabled", "GPS Enabled");
 					//Request our last known location, and get the lat and lon
 					if (locationManager != null) {
-                        _location = locationManager
-                                .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        _location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                         if (_location != null) {
                             _lat = _location.getLatitude();
                             _lon = _location.getLongitude();
@@ -103,9 +103,10 @@ public class GpsService extends Service implements LocationListener {
     
 	@Override
 	public void onLocationChanged(Location location) {
+		_lat = location.getLatitude();
+		_lon = location.getLongitude();
 		GpsPointList.getInstance().write(new GpsPoint(_lat, _lon, System.currentTimeMillis()));
 		Log.d("LOCATION", "Location Changed");
-		
 	}
 	
 	@Override
@@ -125,6 +126,17 @@ public class GpsService extends Service implements LocationListener {
 	public void onProviderEnabled(String provider) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void forceUpdate() {
+		locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null);
+        Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        _lat = loc.getLatitude();
+        _lon = loc.getLongitude();
+        CharSequence text = _lat + ", " + _lon;
+		int duration = Toast.LENGTH_LONG;
+		Toast toast = Toast.makeText(_context, text, duration);
+		toast.show();
 	}
 
 	@Override

@@ -21,13 +21,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:tag="trueDot" />
+    
+     <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#3fc380"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Select Starting Point"
+            android:textColor="#fff"
+            android:textSize="30dp" />
 
     <ImageButton
         android:id="@+id/imageButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="DotLock"
-        android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+        android:scaleType="fitXY"
+        android:src="@drawable/checkmark" 
+        android:background="@null"/>
+
 </RelativeLayout>
