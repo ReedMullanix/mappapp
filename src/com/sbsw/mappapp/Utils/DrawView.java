@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Toast;
 
 public class DrawView extends View {
 	private Paint paint = new Paint();
@@ -29,6 +28,7 @@ public class DrawView extends View {
 	}
 	
 	
+	@Override
 	public void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		dotList = GpsPointList.getInstance().read();

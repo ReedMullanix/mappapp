@@ -3,16 +3,12 @@ package com.sbsw.mappapp;
 import java.io.File;
 
 import com.sbsw.mappapp.Utils.Dot;
-import com.sbsw.mappapp.Utils.DrawView;
 import com.sbsw.mappapp.Utils.LatLonToXY;
 import com.sbsw.mappapp.model.GpsPointList;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.PointF;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -20,19 +16,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class WalkActivity extends Activity implements OnTouchListener {
 
 	private GpsService _gps;
 	private float _previousX;
 	private float _previousY;
-	private float _rotation;
 	private float dotX;
 	private float dotY;
 	private Matrix matrix = new Matrix();
 	
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		//Load up our layout
 		super.onCreate(savedInstanceState);
@@ -40,7 +35,8 @@ public class WalkActivity extends Activity implements OnTouchListener {
 		//Loop to wait for GPS Pos, sleep thread for one second between polls
 		while(GpsPointList.getInstance().length() == 0) {
 			try {
-				Thread.currentThread().sleep(1000);
+				Thread.currentThread();
+				Thread.sleep(1000);
 			} catch (Exception e) {
 
 			}
@@ -68,6 +64,7 @@ public class WalkActivity extends Activity implements OnTouchListener {
 	}
 
 
+	@Override
 	public boolean dispatchTouchEvent (MotionEvent ev) {
 		ImageView myImage = (ImageView) findViewById(R.id.map_img);
 		myImage.dispatchTouchEvent(ev);
