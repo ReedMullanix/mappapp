@@ -31,6 +31,7 @@ public class DrawView extends View {
 	
 	public void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
+		dotList = GpsPointList.getInstance().read();
 		for(GpsPoint p : dotList) {
 			float[] lastXY = LatLonToXY.convert(p.getLongitude(), p.getLatitude());
 			float[] prevXY = LatLonToXY.convert(prev.getLongitude(), prev.getLatitude());

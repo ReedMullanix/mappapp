@@ -1,16 +1,10 @@
 package com.sbsw.mappapp;
 
-import java.io.IOException;
-
 import android.content.Context;
 import android.hardware.Camera;
-import android.hardware.Camera.Parameters;
 import android.util.Log;
-import android.view.Display;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.WindowManager;
 
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
 	private SurfaceHolder _holder;
@@ -19,7 +13,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 	public CameraPreview(Context context, Camera camera) {
 		super(context);
 		_camera = camera;
-
 		// Install a SurfaceHolder.Callback so we get notified when the
 		// underlying surface is created and destroyed.
 		_holder = getHolder();
@@ -29,6 +22,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 	}
 
 	@Override
+	//Called on surface create, set up our preview
 	public void surfaceCreated(SurfaceHolder holder) {
 		setWillNotDraw(false);
 		_camera.setDisplayOrientation(90);
@@ -54,7 +48,8 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 		previewCamera();        
 
 	}
-
+	
+	//Starts our preview
 	public void previewCamera()
 	{     
 		try
