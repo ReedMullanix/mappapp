@@ -2,17 +2,23 @@ package com.sbsw.mappapp;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
 import android.util.Log;
+import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.WindowManager;
 
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
 	private SurfaceHolder _holder;
 	private Camera _camera;
+	private Context _context;
 
-	@SuppressWarnings("deprecation") public CameraPreview(Context context, Camera camera) {
+	@SuppressWarnings("deprecation") 
+	public CameraPreview(Context context, Camera camera) {
 		super(context);
 		_camera = camera;
+		_context = context;
 		// Install a SurfaceHolder.Callback so we get notified when the
 		// underlying surface is created and destroyed.
 		_holder = getHolder();
@@ -30,8 +36,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 	}
 
 	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-			int height) {
+	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
 		if(_holder == null) {
 			//Our Preview Doesnt Exist!
@@ -44,7 +49,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 		} catch (Exception e){
 			// ignore: tried to stop a non-existent preview
 		}
-
 		previewCamera();        
 
 	}

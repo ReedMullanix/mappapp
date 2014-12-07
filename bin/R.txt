@@ -230,6 +230,8 @@ int drawable camera_button 0x7f020057
 int drawable checkmark 0x7f020058
 int drawable gps_icon_big 0x7f020059
 int drawable ic_launcher 0x7f02005a
+int drawable klaxon 0x7f02005b
+int drawable unnamed 0x7f02005c
 int id action_bar 0x7f05001c
 int id action_bar_activity_content 0x7f050015
 int id action_bar_container 0x7f05001b

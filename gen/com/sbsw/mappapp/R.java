@@ -985,6 +985,8 @@ containing a value of this type.
         public static final int checkmark=0x7f020058;
         public static final int gps_icon_big=0x7f020059;
         public static final int ic_launcher=0x7f02005a;
+        public static final int klaxon=0x7f02005b;
+        public static final int unnamed=0x7f02005c;
     }
     public static final class id {
         public static final int action_bar=0x7f05001c;

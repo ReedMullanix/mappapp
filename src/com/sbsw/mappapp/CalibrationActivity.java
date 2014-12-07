@@ -1,12 +1,9 @@
 package com.sbsw.mappapp;
 
-import java.io.File;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 import com.sbsw.mappapp.Utils.*;
@@ -23,9 +20,9 @@ public class CalibrationActivity extends Activity {
 		//TODO: Store the photo in memory only
 		//Makes the app faster, avoids copyright issues
 		//Might cause memory issues though
-		File mediaStorageDir = new File(Environment.getExternalStorageDirectory().getPath() + "/MappApp/");
+//		File mediaStorageDir = new File(Environment.getExternalStorageDirectory().getPath() + "/MappApp/");
 		ImageView myImage = (ImageView) findViewById(R.id.imageView1);
-		myImage.setImageBitmap(BitmapFactory.decodeFile(mediaStorageDir + "tmpMap.png"));
+		myImage.setImageBitmap(Map.getInstance().getBitmap());
 	}
 	
 	//Called when we click the button to lock our position

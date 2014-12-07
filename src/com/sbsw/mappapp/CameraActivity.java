@@ -21,7 +21,7 @@ public class CameraActivity extends FragmentActivity {
 		//Set up our layout
 		setContentView(R.layout.camera_activty);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		fragment = (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.camera_view);
+		fragment = (CameraFragment)getSupportFragmentManager().findFragmentById(R.id.camera_view);
 
 		if (fragment == null) {
 			fragment = new CameraFragment();

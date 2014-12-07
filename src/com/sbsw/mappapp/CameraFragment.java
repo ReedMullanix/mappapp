@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import com.sbsw.mappapp.Utils.Map;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +13,7 @@ import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PictureCallback;
+import android.media.ExifInterface;
 import android.media.MediaActionSound;
 import android.os.Bundle;
 import android.os.Environment;
@@ -93,10 +96,12 @@ public class CameraFragment extends Fragment{
 			Parameters parameters = c.getParameters();
 			//We dont need High-Res Photos, so we set the quality to shit
 			parameters.setJpegQuality(50);
+			parameters.setPictureSize(640, 480);
 			//Auto flash and auto focus enabled
 			parameters.setFlashMode(Camera.Parameters.FLASH_MODE_AUTO);
 			parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
-			parameters.setRotation(270);
+			//Set our picture size to a low res
+			parameters.setRotation(90);
 			//Actually set the params
 			c.setParameters(parameters);
 		}
@@ -160,48 +165,8 @@ public class CameraFragment extends Fragment{
 		public void onPictureTaken(byte[] data, Camera camera) {
 			//If we actually have data, operate on it
 			if (data != null) {
-				//Get our screen size for scaling
-				int screenWidth = getResources().getDisplayMetrics().widthPixels;
-				int screenHeight = getResources().getDisplayMetrics().heightPixels;
 				Bitmap bm = BitmapFactory.decodeByteArray(data, 0, (data != null) ? data.length : 0);
-//				//If the orientation is in portrait, we fix the rotation of the image that is present
-//				//This is subject to change, as it fixes bugs on some platforms but creates them in others
-//				if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-//					// Notice that width and height are reversed
-//					Bitmap scaled = Bitmap.createScaledBitmap(bm, screenHeight, screenWidth, true);
-//					int w = scaled.getWidth();
-//					int h = scaled.getHeight();
-//					// Setting post rotate to 90
-//					Matrix mtx = new Matrix();
-//					mtx.postRotate(90);
-//					// Rotating Bitmap
-//					bm = Bitmap.createBitmap(scaled, 0, 0, w, h, mtx, true);
-//				}else{// LANDSCAPE MODE
-//					//No need to reverse width and height
-//					Bitmap scaled = Bitmap.createScaledBitmap(bm, screenWidth,screenHeight , true);
-//					bm=scaled;
-//				}
-				Bitmap scaled = Bitmap.createScaledBitmap(bm, screenWidth,screenHeight , true);
-				bm=scaled;
-				//Create a file stream to write to
-				FileOutputStream out = null;
-				File mediaStorageDir = new File(Environment.getExternalStorageDirectory().getPath() + "/MappApp/");
-				try {
-					out = new FileOutputStream(mediaStorageDir + "tmpMap.png");
-					bm.compress(Bitmap.CompressFormat.JPEG, 100, out); // bmp is your Bitmap instance
-					// We use JPEG because quality < speed in our use case
-				} catch (Exception e) {
-					e.printStackTrace();
-				} finally {
-					try {
-						if (out != null) {
-							out.close();
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-				//Start the calibration activty
+				Map.getInstance().setBitmap(bm);
 				Intent intent = new Intent(getActivity(), CalibrationActivity.class);
 				startActivity(intent);
 			}
