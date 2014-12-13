@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.sbsw.mappapp.model.GpsPoint;
-import com.sbsw.mappapp.model.GpsPointList;
 
 import java.util.ArrayList;
 
@@ -23,22 +22,22 @@ public class DrawView extends View {
 		paint.setStrokeWidth(5);
 		setWillNotDraw(false);
 		dotList = new ArrayList<GpsPoint>();
-		dotList = GpsPointList.getInstance().read();
-		prev = dotList.get(0);
+		dotList = Map.getGPSPoints();
 	}
 	
 	
 	@Override
 	public void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		dotList = GpsPointList.getInstance().read();
+		dotList = Map.getGPSPoints();
+        prev = dotList.get(0);
 		for(GpsPoint p : dotList) {
 			ScreenPointPair currXY = Map.convertToScreenCoords(p);
-            ScreenPointPair prevXY = Map.convertToScreenCoords(p);
+            ScreenPointPair prevXY = Map.convertToScreenCoords(prev);
+            //Log.d("GPS UPDATE", "Converted XY" + currXY.getX() + " " + currXY.getY());
 			canvas.drawCircle(currXY.getX(), currXY.getY(), 5, paint);
 			canvas.drawLine(currXY.getX(), currXY.getY(), prevXY.getX(), prevXY.getY(), paint);
 			prev = p;
-			
 		}
 		this.invalidate();
 	}

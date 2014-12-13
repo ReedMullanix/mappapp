@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 
 import com.sbsw.mappapp.Utils.Dot;
 import com.sbsw.mappapp.Utils.Map;
-import com.sbsw.mappapp.model.GpsPointList;
 
 public class WalkActivity extends Activity implements OnTouchListener {
 
@@ -28,7 +27,7 @@ public class WalkActivity extends Activity implements OnTouchListener {
 		super.onCreate(savedInstanceState);
 		_gps = new GpsService(WalkActivity.this);
 		//Loop to wait for GPS Pos, sleep thread for one second between polls
-		while(GpsPointList.getInstance().length() == 0) {
+		while(Map.getGPSPoints().size() == 0) {
 			try {
 				Thread.currentThread();
 				Thread.sleep(1000);
@@ -37,7 +36,7 @@ public class WalkActivity extends Activity implements OnTouchListener {
 			}
 			Log.d("GPS COMMS", "Polling...");
 		}
-		Map.setGPS(GpsPointList.getInstance().read().get(0));
+		Map.setGPSStart(Map.getGPSPoints().get(0));
 		setContentView(R.layout.walk_main);
 		ImageView myImage = (ImageView) findViewById(R.id.map_img);
 		myImage.setImageBitmap(Map.getBitmap());

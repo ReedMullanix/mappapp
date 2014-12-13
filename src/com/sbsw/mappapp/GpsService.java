@@ -1,8 +1,5 @@
 package com.sbsw.mappapp;
 
-import com.sbsw.mappapp.model.GpsPoint;
-import com.sbsw.mappapp.model.GpsPointList;
-
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -16,6 +13,9 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.sbsw.mappapp.Utils.Map;
+import com.sbsw.mappapp.model.GpsPoint;
 
 public class GpsService extends Service implements LocationListener {
 
@@ -42,7 +42,7 @@ public class GpsService extends Service implements LocationListener {
 	public GpsService(Context context) {
         this._context = context;
         getLocation();
-        GpsPointList.getInstance().write(new GpsPoint(_lat, _lon, System.currentTimeMillis()));
+        Map.addGPSPoint(new GpsPoint(_lat, _lon, System.currentTimeMillis()));
     }
 	
 	//Gets the location
@@ -105,7 +105,7 @@ public class GpsService extends Service implements LocationListener {
 	public void onLocationChanged(Location location) {
 		_lat = location.getLatitude();
 		_lon = location.getLongitude();
-		GpsPointList.getInstance().write(new GpsPoint(_lat, _lon, System.currentTimeMillis()));
+		Map.addGPSPoint(new GpsPoint(_lat, _lon, System.currentTimeMillis()));
 		Log.d("LOCATION", "Location Changed");
 	}
 	

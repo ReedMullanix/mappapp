@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
+import com.sbsw.mappapp.Utils.Map;
+
 
 /**
  * 
@@ -18,11 +20,12 @@ public class CameraActivity extends FragmentActivity {
 	//Called On View Create
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//Set up our layout
+        //Do setup on our Map
+        Map.setDisplay(getWindowManager().getDefaultDisplay());
+        //Set up our layout
 		setContentView(R.layout.camera_activty);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		fragment = (CameraFragment)getSupportFragmentManager().findFragmentById(R.id.camera_view);
-
 		if (fragment == null) {
 			fragment = new CameraFragment();
 			//Adds the fragment to the FrameLayout called camera_view
