@@ -1,29 +1,24 @@
 package com.sbsw.mappapp;
 
-import java.io.File;
-
-import com.sbsw.mappapp.Utils.Dot;
-import com.sbsw.mappapp.Utils.LatLonToXY;
-import com.sbsw.mappapp.model.GpsPointList;
-
 import android.app.Activity;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
+import com.sbsw.mappapp.Utils.Dot;
+import com.sbsw.mappapp.Utils.Map;
+import com.sbsw.mappapp.model.GpsPointList;
 
 public class WalkActivity extends Activity implements OnTouchListener {
 
 	private GpsService _gps;
 	private float _previousX;
 	private float _previousY;
-	private float dotX;
-	private float dotY;
 	private Matrix matrix = new Matrix();
 	
 
@@ -42,18 +37,14 @@ public class WalkActivity extends Activity implements OnTouchListener {
 			}
 			Log.d("GPS COMMS", "Polling...");
 		}
-		LatLonToXY.setDotGPS(GpsPointList.getInstance().read().get(0));
+		Map.setGPS(GpsPointList.getInstance().read().get(0));
 		setContentView(R.layout.walk_main);
-		File mediaStorageDir = new File(Environment.getExternalStorageDirectory().getPath() + "/MappApp/");
 		ImageView myImage = (ImageView) findViewById(R.id.map_img);
-		myImage.setImageBitmap(BitmapFactory.decodeFile(mediaStorageDir + "tmpMap.png"));
-		Dot dot = (Dot) findViewById(R.id.dot);
-		float[] dotPos = LatLonToXY.getDotPos();
-		dot.setX(dotPos[0]);
-		dotX = dotPos[0];
-		dot.setY(dotPos[1]);
-		dotY = dotPos[1];
-		dot.lock();
+		myImage.setImageBitmap(Map.getBitmap());
+		Dot dot = Map.getDot();
+        RelativeLayout myLayout = (RelativeLayout) findViewById(R.id.walk_layout);
+        myLayout.addView(dot);
+        dot.lock();
 		myImage.setScaleType(ImageView.ScaleType.MATRIX);
 		myImage.setOnTouchListener(this);
 	}
@@ -74,23 +65,34 @@ public class WalkActivity extends Activity implements OnTouchListener {
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		ImageView myImage = (ImageView) findViewById(R.id.map_img);
+        //Alias the dot positions
+        float dotX = Map.getDot().getX();
+        float dotY = Map.getDot().getY();
+        //Get position of the event relative to the dot
 		float x = event.getX()  - dotX;
 		float y = event.getY() - dotY;
-		switch (event.getAction()) {
-		case MotionEvent.ACTION_MOVE:
+        //make sure the event is a move event
+        if(event.getAction() == MotionEvent.ACTION_MOVE) {
+            //Get the delta from the event and the previous event
 			float dx = x - _previousX;
 			float dy = y - _previousY;
-			float distVector1 = (float) Math.sqrt(dx*dx + dy*dy);
-			float distVector2 = (float) Math.sqrt(x*x + y*y);
-			float distVector3 = (float) Math.sqrt(_previousX*_previousX + _previousY*_previousY);
-			float scale = distVector2 / distVector3;
+            //Generate our 3 movement vectors from this data
+			float deltaVector = (float) Math.sqrt(dx*dx + dy*dy);
+			float touchVector = (float) Math.sqrt(x*x + y*y);
+			float prevTouchVector = (float) Math.sqrt(_previousX*_previousX + _previousY*_previousY);
+            //Get a scale vector, and scale the matrix
+			float scale = touchVector / prevTouchVector;
 			matrix.postScale(scale, scale, dotX, dotY);
+            //Determine the direction and magnitude of the rotation
+            //Then apply it to the matrix
 			if(y/x - _previousY/_previousX >=0)
-				matrix.postRotate((float)(Math.atan(distVector1/distVector3)*(180/Math.PI)), dotX, dotY);
+				matrix.postRotate((float)(Math.atan(deltaVector/prevTouchVector)*(180/Math.PI)), dotX, dotY);
 			else
-				matrix.postRotate((float)(-Math.atan(distVector1/distVector3)*(180/Math.PI)), dotX, dotY);
+				matrix.postRotate((float)(-Math.atan(deltaVector/prevTouchVector)*(180/Math.PI)), dotX, dotY);
 		}
+        //Manipulate the image
 		myImage.setImageMatrix(matrix);
+        //Store of the relative position for use in the next cycle
 		_previousX = x;
 		_previousY = y;
 	    return true;

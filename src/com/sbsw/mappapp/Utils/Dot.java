@@ -1,6 +1,5 @@
 package com.sbsw.mappapp.Utils;
 
-import com.sbsw.mappapp.R;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +9,8 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.sbsw.mappapp.R;
 
 public class Dot extends View {
 	private Bitmap bm;

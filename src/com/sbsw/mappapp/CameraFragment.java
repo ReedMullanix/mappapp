@@ -1,11 +1,5 @@
 package com.sbsw.mappapp;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import com.sbsw.mappapp.Utils.Map;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,15 +7,15 @@ import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PictureCallback;
-import android.media.ExifInterface;
 import android.media.MediaActionSound;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.sbsw.mappapp.Utils.Map;
 
 /**
  * Fragment that handles camera operation
@@ -149,7 +143,7 @@ public class CameraFragment extends Fragment{
 	/**
 	 * Begins picture taking callback
 	 * @author Reed
-	 * @param v
+	 * @param
 	 */
 	public void takePhoto(View v){
 		_camera.takePicture(null, null, _picture);
@@ -166,7 +160,7 @@ public class CameraFragment extends Fragment{
 			//If we actually have data, operate on it
 			if (data != null) {
 				Bitmap bm = BitmapFactory.decodeByteArray(data, 0, (data != null) ? data.length : 0);
-				Map.getInstance().setBitmap(bm);
+				Map.setBitmap(bm);
 				Intent intent = new Intent(getActivity(), CalibrationActivity.class);
 				startActivity(intent);
 			}

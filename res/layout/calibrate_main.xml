@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linear"
+    android:id="@+id/calibrate_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1" >
@@ -13,8 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_weight="1"
         android:cropToPadding="false"
-        android:scaleType="fitXY"
-        android:src="@drawable/abc_ab_bottom_solid_dark_holo" />
+        android:scaleType="fitXY"/>
     
     <com.sbsw.mappapp.Utils.Dot
         android:id="@+id/dot"
